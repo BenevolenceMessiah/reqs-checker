@@ -30,6 +30,9 @@ jobs:
     - name: Build the package
       run: python setup.py sdist bdist_wheel
 
+    - name: Verify dist contents
+      run: ls -l dist/
+
     - name: Upload dist directory as artifact
       uses: actions/upload-artifact@v3
       with:
@@ -49,6 +52,9 @@ jobs:
       with:
         name: dist
 
+    - name: Verify downloaded artifact
+      run: ls -l dist/
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -59,4 +65,5 @@ jobs:
       with:
         user: ${{ secrets.PYPI_USERNAME }}
         password: ${{ secrets.PYPI_PASSWORD }}
+        packages_dir: dist/
 
